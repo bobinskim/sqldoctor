@@ -7,7 +7,7 @@
     <ProjectGuid>{88B241E9-D3FD-40BD-A755-F113399812F1}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>sqldoc</RootNamespace>
+    <RootNamespace>SqlDoctor</RootNamespace>
     <AssemblyName>sqldoc</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
