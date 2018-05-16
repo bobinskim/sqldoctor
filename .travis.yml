@@ -3,4 +3,4 @@ solution: sqldoc.sln
 
 script:
   - xbuild /p:Configuration=Release sqldoc.sln
-  - mono ./packages/xunit.runners.*/tools/xunit.console.clr4.exe ./tests/bin/Release/tests.dll
+  - mono ./packages/xunit.runner.console.*/tools/net452/xunit.console.exe ./tests/bin/Release/tests.dll
