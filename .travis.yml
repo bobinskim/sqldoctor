@@ -3,8 +3,8 @@ solution: sqldoc.sln
 
 script:
   - xbuild /p:Configuration=Release sqldoc.sln
-  - mono ./packages/xunit.runner.console.*/tools/net452/xunit.console.exe ./tests/bin/Release/tests.dll
+  - mono ./packages/OpenCover.*/tools/OpenCover.Console.exe -register:user -target:"./packages/xunit.runner.console.*/tools/net452/xunit.console.exe" -targetargs:".\MyUnitTests\bin\Debug\MyUnitTests.dll -noshadow" -filter:"+[sqldoc*]* -[tests*]*" -output:".\coverage.xml"
+
 
 after_script:
-  - make coverage
   - bash <(curl -s https://codecov.io/bash)
