@@ -4,3 +4,7 @@ solution: sqldoc.sln
 script:
   - xbuild /p:Configuration=Release sqldoc.sln
   - mono ./packages/xunit.runner.console.*/tools/net452/xunit.console.exe ./tests/bin/Release/tests.dll
+
+after_script:
+  - make coverage
+  - bash <(curl -s https://codecov.io/bash)
