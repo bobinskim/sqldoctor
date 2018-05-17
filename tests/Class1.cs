@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SqlDoctor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,8 @@ namespace tests
         public void FailingTest()
         {
             Assert.Equal(5, Add(2, 2));
+            FileLoader loader = new FileLoader();
+            Assert.Empty(loader.LoadFiles(null, null, false));
         }
 
         int Add(int x, int y)
