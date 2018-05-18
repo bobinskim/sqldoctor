@@ -5,10 +5,12 @@ before_build:
 - nuget restore
 - choco install opencover.portable
 - choco install codecov
+- choco install "msbuild-sonarqube-runner" -y
 
-build:
-  project: sqldoc.sln
-  verbosity: minimal
+build_script:
+- MSBuild.SonarQube.Runner.exe begin /k:"sqldoc" /d:"sonar.host.url=https://sonarqube.com" /d:"sonar.login=7cae712236e78e474beddcfe331790562fc2c6fc"
+- msbuild sqldoc.sln
+- MSBuild.SonarQube.Runner.exe end /d:"sonar.login=7cae712236e78e474beddcfe331790562fc2c6fc"
 
 test_script:
 - OpenCover.Console.exe -register:user -target:".\packages\xunit.runner.console.2.3.1/tools/net452/xunit.console.exe" -targetargs:".\tests\bin\Debug\tests.dll -noshadow" -filter:"+[sqldoc*]* -[tests*]*" -output:".\coverage.xml"
