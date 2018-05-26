@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SqlDoctor
 {
-    public class FileLoader
+    public class FileLoader : IFileLoader
     {
         public IEnumerable<string> LoadFiles(string path, string filter, bool recursive)
         {

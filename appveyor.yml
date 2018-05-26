@@ -13,5 +13,5 @@ build_script:
 - SonarScanner.MSBuild.exe end /d:sonar.login="7cae712236e78e474beddcfe331790562fc2c6fc"
 
 test_script:
-- OpenCover.Console.exe -register:user -target:".\packages\xunit.runner.console.2.3.1/tools/net452/xunit.console.exe" -targetargs:".\tests\bin\Debug\tests.dll -noshadow" -filter:"+[sqldoc*]* -[tests*]*" -output:".\coverage.xml"
+- OpenCover.Console.exe -register:user -target:".\packages\xunit.runner.console.2.3.1/tools/net452/xunit.console.exe" -targetargs:".\tests\bin\Debug\tests.dll -noshadow" -filter:"+[sqldoc*]* -[tests*]* -[sqldoc*]SqlDoctor.Program" -output:".\coverage.xml"
 - codecov -f "coverage.xml"
