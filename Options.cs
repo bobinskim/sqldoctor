@@ -15,10 +15,10 @@ namespace SqlDoctor
         [Option('t', "tables", Default = true, HelpText = "Documents tables.")]
         public bool Tables { get; set; }
 
-        [Option('f', "filter", HelpText = "Regex to filter for object names to be documented.")]
+        [Option('f', "filter", Default = @".+\.sql$", HelpText = "Regex to filter for object names to be documented.")]
         public string Filter { get; set; }
 
-        [Option('o', "output", HelpText = "Asciidoc output file.")]
+        [Option('o', "output", Default = "schema.adoc", HelpText = "Asciidoc output file.")]
         public string Output { get; set; }
 
 

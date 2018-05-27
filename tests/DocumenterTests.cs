@@ -1,4 +1,5 @@
 ﻿using Moq;
+using NLog;
 using SqlDoctor;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,8 @@ namespace tests
 
             SchemaInfo schema = new SchemaInfo();
             Mock<IDDLParser> parser = new Mock<IDDLParser>();
-            parser.Setup(p => p.Parse(It.Is<IEnumerable<string>>(input => input.Count() > 0))).Returns(schema);
-            parser.Setup(p => p.Parse(It.Is<IEnumerable<string>>(input => input.Count() == 0))).Throws<ArgumentException>();
+            parser.Setup(p => p.Parse(It.Is<IEnumerable<string>>(input => input.Any()))).Returns(schema);
+            parser.Setup(p => p.Parse(It.Is<IEnumerable<string>>(input => !input.Any()))).Throws<ArgumentException>();
 
             Mock<IDocGenerator> gen = new Mock<IDocGenerator>();
             gen.Setup(g => g.Generate(schema)).Returns("=asciidoc output");
@@ -33,18 +34,22 @@ namespace tests
             writer.Setup(w => w.WriteOutput(It.IsAny<string>(), It.Is<Options>(o => o.Output == "correct_output")));
             writer.Setup(w => w.WriteOutput(It.IsAny<string>(), It.Is<Options>(o => o.Output == "incorrect_output"))).Throws<SystemException>();
 
-            this.documenter = new Documenter(loader.Object, parser.Object, gen.Object, writer.Object);
+            Mock<ILogger> logger = new Mock<ILogger>();
+
+            this.documenter = new Documenter(loader.Object, parser.Object, gen.Object, writer.Object, logger.Object);
         }
 
         [Theory]
         [InlineData("existing_path", "match", "correct_output")]
         public void MakeDocs_ValidOptions_GeneratesOutput(string input, string filter, string output)
         {
-            Options options = new Options();
-            options.InputDir = input;
-            options.Filter = filter;
-            options.Output = output;
-            options.Tables = true;
+            var options = new Options
+            {
+                InputDir = input,
+                Filter = filter,
+                Output = output,
+                Tables = true
+            };
 
             this.documenter.MakeDocs(options);
 
@@ -57,11 +62,13 @@ namespace tests
         [InlineData("existing_path", "match", "incorrect_output")]
         public void MakeDocs_InvalidOptions_Throws(string input, string filter, string output)
         {
-            Options options = new Options();
-            options.InputDir = input;
-            options.Filter = filter;
-            options.Output = output;
-            options.Tables = true;
+            var options = new Options
+            {
+                InputDir = input,
+                Filter = filter,
+                Output = output,
+                Tables = true
+            };
 
             Assert.ThrowsAny<Exception>(() => this.documenter.MakeDocs(options));
         }

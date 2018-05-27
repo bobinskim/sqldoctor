@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace SqlDoctor
 {
-    class Program
+    static class Program
     {
-        private static Logger logger;
+        private static Logger logger = null;
 
         public static IContainer Container { get; set; }
 
@@ -24,17 +24,35 @@ namespace SqlDoctor
             {
                 SetupLogging();
 
-                var builder = new ContainerBuilder();
-                //builder.RegisterType<DocCommandParser>().As<IDocArgsParser>();
-                builder.RegisterType<CommandParser>();
-                builder.RegisterType<Documenter>();
-                Container = builder.Build();
+                try
+                {
+                    var builder = new ContainerBuilder();
+                    builder.RegisterType<CommandParser>();
+                    builder.RegisterType<Documenter>();
+                    Container = builder.Build();
+                }
+                catch(Exception ex)
+                {
+                    logger.Error(ex, "Application initialization error");
+                    throw;
+                }
 
                 ParseAndRun(args);
             }
+            catch(NLogConfigurationException ex)
+            {
+                Console.WriteLine("[ERROR] Logger initialization failed: {0}", ex.Message);
+            }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                if (logger != null)
+                {
+                    logger.Error(ex, "Unexpected error occurred");
+                }
+                else
+                {
+                    Console.WriteLine("[ERROR]Unexpected error occurred: {0}", ex.Message);
+                }
             }
         }
 
@@ -44,13 +62,19 @@ namespace SqlDoctor
             {
                 var documenter = Container.Resolve<Documenter>();
                 var commParser = Container.Resolve<CommandParser>();
+
                 Options options = commParser.Parse(args);
 
                 documenter.MakeDocs(options);
             }
-            catch(Exception ex)
+            catch (DependencyResolutionException ex)
             {
-                logger.Error(ex, "Unexpected error occurred");
+                logger.Error(ex, "Application initialization error");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Documentation generation failure.");
             }
         }
 
