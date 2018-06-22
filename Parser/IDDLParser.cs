@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SqlDoctor
+namespace SqlDoctor.Parser
 {
     public interface IDDLParser
     {

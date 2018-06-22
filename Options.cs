@@ -15,7 +15,7 @@ namespace SqlDoctor
         [Option('t', "tables", Default = true, HelpText = "Documents tables.")]
         public bool Tables { get; set; }
 
-        [Option('f', "filter", Default = @".+\.sql$", HelpText = "Regex to filter for object names to be documented.")]
+        [Option('f', "filter", Default = @"*.sql", HelpText = "Pattern to filter file names.")]
         public string Filter { get; set; }
 
         [Option('o', "output", Default = "schema.adoc", HelpText = "Asciidoc output file.")]

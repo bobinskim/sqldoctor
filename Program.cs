@@ -4,11 +4,14 @@ using CommandLine;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
+using SqlDoctor.Generator;
+using SqlDoctor.Parser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SystemWrapper.IO;
 
 namespace SqlDoctor
 {
@@ -27,8 +30,15 @@ namespace SqlDoctor
                 try
                 {
                     var builder = new ContainerBuilder();
+                    builder.Register<ILogger>(c => logger);
                     builder.RegisterType<CommandParser>();
                     builder.RegisterType<Documenter>();
+                    builder.RegisterType<FileLoader>().AsImplementedInterfaces();
+                    builder.RegisterType<DDLParser>().AsImplementedInterfaces();
+                    builder.RegisterType<DocGenerator>().AsImplementedInterfaces();
+                    builder.RegisterType<OutputWriter>().AsImplementedInterfaces();
+                    builder.RegisterType<DirectoryWrap>().AsImplementedInterfaces();
+                    builder.RegisterType<FileWrap>().AsImplementedInterfaces();
                     Container = builder.Build();
                 }
                 catch(Exception ex)
@@ -37,7 +47,19 @@ namespace SqlDoctor
                     throw;
                 }
 
-                ParseAndRun(args);
+                if (args.Length > 0)
+                {
+                    ParseAndRun(args);
+                }
+                else
+                {
+                    string input = Console.ReadLine();
+                    while (input != "" && input != "exit")
+                    {
+                        ParseAndRun(input.Split(' '));
+                        input = Console.ReadLine();
+                    }
+                }
             }
             catch(NLogConfigurationException ex)
             {
@@ -60,11 +82,10 @@ namespace SqlDoctor
         {
             try
             {
-                var documenter = Container.Resolve<Documenter>();
                 var commParser = Container.Resolve<CommandParser>();
-
                 Options options = commParser.Parse(args);
 
+                var documenter = Container.Resolve<Documenter>();
                 documenter.MakeDocs(options);
             }
             catch (DependencyResolutionException ex)

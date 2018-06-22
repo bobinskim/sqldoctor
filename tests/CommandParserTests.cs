@@ -1,6 +1,7 @@
 ﻿using Moq;
 using NLog;
 using SqlDoctor;
+using SqlDoctor.Parser;
 using System;
 using Xunit;
 

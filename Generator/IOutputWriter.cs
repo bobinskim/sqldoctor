@@ -1,4 +1,4 @@
-﻿namespace SqlDoctor
+﻿namespace SqlDoctor.Generator
 {
     public interface IOutputWriter
     {

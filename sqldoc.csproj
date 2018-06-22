@@ -58,18 +58,25 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="SystemWrapper, Version=0.4.4190.25852, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SystemWrapper.0.4\lib\SystemWrapper.dll</HintPath>
+    </Reference>
     <Reference Include="TSQL_Parser, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\TSQL.Parser.1.1.1\lib\net40\TSQL_Parser.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandParser.cs" />
+    <Compile Include="Generator\DocGenerator.cs" />
+    <Compile Include="Generator\OutputWriter.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Parser\CommandParser.cs" />
     <Compile Include="Documenter.cs" />
-    <Compile Include="FileLoader.cs" />
-    <Compile Include="IDDLParser.cs" />
-    <Compile Include="IDocGenerator.cs" />
-    <Compile Include="IFileLoader.cs" />
-    <Compile Include="IOutputWriter.cs" />
+    <Compile Include="Parser\DDLParser.cs" />
+    <Compile Include="Parser\FileLoader.cs" />
+    <Compile Include="Parser\IDDLParser.cs" />
+    <Compile Include="Generator\IDocGenerator.cs" />
+    <Compile Include="Parser\IFileLoader.cs" />
+    <Compile Include="Generator\IOutputWriter.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,6 +86,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="sqldoc.ruleset" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="instawdbdw.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

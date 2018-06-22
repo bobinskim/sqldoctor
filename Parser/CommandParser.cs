@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SqlDoctor
+namespace SqlDoctor.Parser
 {
     public class CommandParser
     {
@@ -22,7 +22,7 @@ namespace SqlDoctor
             try
             {
                 this.logger.Debug("Execution arguments: {0}", string.Join(" ", args));
-                Parser.Default.ParseArguments<Options>(args)
+                CommandLine.Parser.Default.ParseArguments<Options>(args)
                     .WithParsed(opts => ret = opts)
                     .WithNotParsed((errs) => HandleParseError(errs, args));
             }
@@ -39,14 +39,7 @@ namespace SqlDoctor
         {
             foreach (Error err in errs)
             {
-                if (err.StopsProcessing)
-                {
-                    logger.Error("Critical arguments parsing error occurred", err, string.Join(" ", args));
-                }
-                else
-                {
-                    logger.Warn("Parsing arguments error occurred", err, string.Join(" ", args));
-                }
+                logger.Error("Error {0} occurred while parsing arguments: {1}", err, string.Join(" ", args));
             }
 
             throw new ArgumentOutOfRangeException("args", "Command line parsing arguments errors");

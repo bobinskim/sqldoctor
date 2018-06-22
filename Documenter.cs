@@ -1,4 +1,6 @@
 ﻿using NLog;
+using SqlDoctor.Generator;
+using SqlDoctor.Parser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +33,7 @@ namespace SqlDoctor
         {
             logger.Debug("Generating SQL schema documentation for files in '{0}' filtered by {1}", options.InputDir, options.Filter);
             IEnumerable<string> input_files = loader.LoadFiles(options.InputDir, options.Filter, true);
+            
             SchemaInfo schema = this.parser.Parse(input_files);
             this.OutputDocs = this.generator.Generate(schema);
             writer.WriteOutput(this.OutputDocs, options);

@@ -1,6 +1,8 @@
 ﻿using Moq;
 using NLog;
 using SqlDoctor;
+using SqlDoctor.Generator;
+using SqlDoctor.Parser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
