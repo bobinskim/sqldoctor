@@ -1,4 +1,6 @@
-﻿namespace SqlDoctor.Generator
+﻿using SqlDoctor.Schema;
+
+namespace SqlDoctor.Generator
 {
     public interface IDocGenerator
     {

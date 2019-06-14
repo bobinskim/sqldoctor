@@ -3,6 +3,7 @@ using NLog;
 using SqlDoctor;
 using SqlDoctor.Generator;
 using SqlDoctor.Parser;
+using SqlDoctor.Schema;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace tests
+namespace SqlDoctor.Tests
 {
     public class DocumenterTests
     {
@@ -25,7 +26,7 @@ namespace tests
             loader.Setup(fl => fl.LoadFiles(It.IsAny<string>(), It.IsAny<string>(), false)).Throws<NotImplementedException>();
 
             SchemaInfo schema = new SchemaInfo();
-            Mock<IDDLParser> parser = new Mock<IDDLParser>();
+            Mock<ISourceCodeParser> parser = new Mock<ISourceCodeParser>();
             parser.Setup(p => p.Parse(It.Is<IEnumerable<string>>(input => input.Any()))).Returns(schema);
             parser.Setup(p => p.Parse(It.Is<IEnumerable<string>>(input => !input.Any()))).Throws<ArgumentException>();
 

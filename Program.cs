@@ -30,15 +30,19 @@ namespace SqlDoctor
                 try
                 {
                     var builder = new ContainerBuilder();
-                    builder.Register<ILogger>(c => logger);
-                    builder.RegisterType<CommandParser>();
+
+                    // main facade object
                     builder.RegisterType<Documenter>();
-                    builder.RegisterType<FileLoader>().AsImplementedInterfaces();
-                    builder.RegisterType<DDLParser>().AsImplementedInterfaces();
-                    builder.RegisterType<DocGenerator>().AsImplementedInterfaces();
-                    builder.RegisterType<OutputWriter>().AsImplementedInterfaces();
-                    builder.RegisterType<DirectoryWrap>().AsImplementedInterfaces();
-                    builder.RegisterType<FileWrap>().AsImplementedInterfaces();
+
+                    // common logger
+                    builder.Register<ILogger>(c => logger);
+
+                    // parser module
+                    builder.RegisterModule<ParserModule>();
+
+                    // generator
+                    builder.RegisterType<DocGenerator>().As<IDocGenerator>();
+                    builder.RegisterType<OutputWriter>().As<IOutputWriter>();
                     Container = builder.Build();
                 }
                 catch(Exception ex)
@@ -95,7 +99,7 @@ namespace SqlDoctor
             }
             catch (Exception ex)
             {
-                logger.Error(ex, "Documentation generation failure.");
+                logger.Error(ex);
             }
         }
 

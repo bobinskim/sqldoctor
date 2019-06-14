@@ -5,7 +5,7 @@ using SqlDoctor.Parser;
 using System;
 using Xunit;
 
-namespace tests
+namespace SqlDoctor.Tests
 {
     public class CommandParserTests
     {

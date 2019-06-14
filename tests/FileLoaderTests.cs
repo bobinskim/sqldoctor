@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using SystemWrapper.IO;
 using Xunit;
 
-namespace tests
+namespace SqlDoctor.Tests
 {
     public class FileLoaderTests
     {

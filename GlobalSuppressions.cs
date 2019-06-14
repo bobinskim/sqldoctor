@@ -5,5 +5,5 @@
 // a specific target and scoped to a namespace, type, member, etc.
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S101:Types should be named in camel case", Justification = "<Pending>", Scope = "type", Target = "~T:SqlDoctor.Parser.DDLParser")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S101:Types should be named in camel case", Justification = "<Pending>", Scope = "type", Target = "~T:SqlDoctor.Parser.IDDLParser")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S101:Types should be named in camel case", Justification = "<Pending>", Scope = "type", Target = "~T:SqlDoctor.Parser.ISourceCodeParser")]
 

@@ -1,6 +1,7 @@
 ﻿using NLog;
 using SqlDoctor.Generator;
 using SqlDoctor.Parser;
+using SqlDoctor.Schema;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,12 @@ namespace SqlDoctor
     public class Documenter
     {
         private readonly IFileLoader loader;
-        private readonly IDDLParser parser;
+        private readonly ISourceCodeParser parser;
         private readonly IDocGenerator generator;
         private readonly IOutputWriter writer;
         private readonly ILogger logger;
 
-        public Documenter(IFileLoader fl, IDDLParser dp, IDocGenerator gen, IOutputWriter ow, ILogger logger)
+        public Documenter(IFileLoader fl, ISourceCodeParser dp, IDocGenerator gen, IOutputWriter ow, ILogger logger)
         {
             this.loader = fl;
             this.parser = dp;
