@@ -38,14 +38,14 @@ namespace SqlDoctor.Tests.IntegrationTests
             this.documenter = container.Resolve<Documenter>();
         }
 
-        [Fact]
-        public void MakeDocs_EmptyInput_EmptyOutput()
-        {
-            Options opts = new Options();
-            opts.InputDir = ".";
-            opts.Filter = "*.empty";
-            this.documenter.MakeDocs(opts);
-            // TODO
-        }
+    //    [Fact]
+    //    public void MakeDocs_EmptyInput_EmptyOutput()
+    //    {
+    //        Options opts = new Options();
+    //        opts.InputDir = ".";
+    //        opts.Filter = "*.empty";
+    //        this.documenter.MakeDocs(opts);
+    //        // TODO
+    //    }
     }
 }

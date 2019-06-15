@@ -15,25 +15,37 @@ namespace SqlDoctor.Tests
 
         public SourceCodeParserTests()
         {
-            Mock<ILogger> logger = new Mock<ILogger>();
+            SchemaInfo mockSchema = new SchemaInfo();
+            var tab1 = new TableInfo("tab1");
+            tab1.Columns["col1"] = new ColumnInfo();
+            mockSchema.Tables.Add(tab1);
 
-            this.parser = new SourceCodeParser(logger.Object);
+            var tab2 = new TableInfo("tab2");
+            tab1.Columns["col2"] = new ColumnInfo();
+            mockSchema.Tables.Add(tab2);
+
+            Mock<ILogger> logger = new Mock<ILogger>();
+            Mock<SchemaVisitorBase> visitor = new Mock<SchemaVisitorBase>();
+            visitor.SetupAllProperties();
+            visitor.Object.schema = mockSchema;
+
+            this.parser = new SourceCodeParser(logger.Object, () => visitor.Object);
         }
 
         [Theory]
-        [InlineData("TestDDL0", 1)]
-        [InlineData("TestDDL1", 31)]
-        public void Parse_CorrectInput_CorrectSchema(string resName, int tables)
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(5)]
+        public void Parse_CorrectInput_CorrectSchema(int fileNum)
         {
-            SchemaInfo result = this.parser.Parse(new List<string>() { Properties.Resources.ResourceManager.GetString(resName) });
-            Assert.Equal(tables, result.Tables.Count);
-        }
+            var input = new List<string>();
+            for(int i = 0; i<fileNum; i++)
+            {
+                input.Add("qwerty asdfg zxcvb");
+            }
 
-        [Fact]
-        public void Parse_MultInput_MergeSchema()
-        {
-            SchemaInfo result = this.parser.Parse(new List<string>() { Properties.Resources.TestDDL0, Properties.Resources.TestDDL1 });
-            Assert.Equal(32, result.Tables.Count);
+            SchemaInfo result = this.parser.Parse(input);
+            Assert.Equal(fileNum * 2, result.Tables.Count);
         }
 
         [Fact]

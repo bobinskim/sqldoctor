@@ -71,6 +71,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Parser\CommandParser.cs" />
     <Compile Include="Documenter.cs" />
+    <Compile Include="Parser\SchemaVisitorBase.cs" />
     <Compile Include="Parser\SourceCodeParser.cs" />
     <Compile Include="Parser\FileLoader.cs" />
     <Compile Include="Parser\ISourceCodeParser.cs" />
