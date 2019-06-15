@@ -12,9 +12,11 @@ namespace SqlDoctor.Schema
         {
             this.Columns = new Dictionary<string, ColumnInfo>();
             this.Name = name;
+            this.Description = string.Empty;
         }
 
         public Dictionary<string, ColumnInfo> Columns { get; private set; }
         public string Name { get; private set; }
+        public string Description { get; set; }
     }
 }

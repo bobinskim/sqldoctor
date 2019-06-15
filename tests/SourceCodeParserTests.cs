@@ -18,16 +18,16 @@ namespace SqlDoctor.Tests
             SchemaInfo mockSchema = new SchemaInfo();
             var tab1 = new TableInfo("tab1");
             tab1.Columns["col1"] = new ColumnInfo();
-            mockSchema.Tables.Add(tab1);
+            mockSchema.Tables.Add("tab1", tab1);
 
             var tab2 = new TableInfo("tab2");
             tab1.Columns["col2"] = new ColumnInfo();
-            mockSchema.Tables.Add(tab2);
+            mockSchema.Tables.Add("tab2", tab2);
 
             Mock<ILogger> logger = new Mock<ILogger>();
             Mock<SchemaVisitorBase> visitor = new Mock<SchemaVisitorBase>();
             visitor.SetupAllProperties();
-            visitor.Object.schema = mockSchema;
+            visitor.Object.Schema = mockSchema;
 
             this.parser = new SourceCodeParser(logger.Object, () => visitor.Object);
         }
@@ -36,7 +36,7 @@ namespace SqlDoctor.Tests
         [InlineData(1)]
         [InlineData(2)]
         [InlineData(5)]
-        public void Parse_CorrectInput_CorrectSchema(int fileNum)
+        public void Parse_AnyInput_GetSchema(int fileNum)
         {
             var input = new List<string>();
             for(int i = 0; i<fileNum; i++)

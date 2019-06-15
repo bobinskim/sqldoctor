@@ -1,4 +1,4 @@
-CREATE TABLE [dbo].[FactSalesQuota](
+CREATE TABLE [FactSalesQuota](
 	[SalesQuotaKey] [int] IDENTITY(1,1) NOT NULL,
 	[EmployeeKey] [int] NOT NULL,
 	[DateKey] [int] NOT NULL,

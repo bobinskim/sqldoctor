@@ -39,7 +39,7 @@ namespace SqlDoctor.Parser
                 var visitor = this.visitorFactory();
                 fragment.Accept(visitor);
 
-                this.Append(ret, visitor.schema);
+                this.Append(ret, visitor.Schema);
             }
 
             return ret;

@@ -14,7 +14,7 @@ namespace SqlDoctor.Tests.IntegrationTests
 {
     public class GenerateDocsTests
     {
-        private Documenter documenter;
+        private readonly Documenter documenter;
 
         public GenerateDocsTests()
         {

@@ -6,9 +6,9 @@ namespace SqlDoctor.Schema
     {
         public SchemaInfo()
         {
-            this.Tables = new List<TableInfo>();
+            this.Tables = new Dictionary<string, TableInfo>();
         }
 
-        public ICollection<TableInfo> Tables { get; private set; }
+        public IDictionary<string, TableInfo> Tables { get; private set; }
     }
 }

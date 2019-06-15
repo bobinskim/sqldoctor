@@ -1,14 +1,15 @@
 {
-  "ServerUri": "https://sonarcloud.io",
+  "ServerUri": "https://sonarcloud.io/",
   "Organization": {
     "Key": "bobinskim-github",
     "Name": "bobinskim"
   },
   "ProjectKey": "sqldoctor",
+  "ProjectName": "sqldoctor",
   "Profiles": {
     "CSharp": {
       "ProfileKey": "AWNusfBRCiV67y-xNldR",
-      "ProfileTimestamp": "2018-07-18T12:34:53+02:00"
+      "ProfileTimestamp": "2019-05-07T17:01:40+02:00"
     }
   }
 }

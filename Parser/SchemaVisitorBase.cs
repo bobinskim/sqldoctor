@@ -10,6 +10,11 @@ namespace SqlDoctor.Parser
 {
     abstract public class SchemaVisitorBase : TSqlConcreteFragmentVisitor
     {
-        public SchemaInfo schema { get; set; }
+        public SchemaInfo Schema { get; set; }
+
+        protected SchemaVisitorBase()
+        {
+            this.Schema = new SchemaInfo();
+        }
     }
 }

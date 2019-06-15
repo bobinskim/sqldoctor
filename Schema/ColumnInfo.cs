@@ -9,11 +9,11 @@ namespace SqlDoctor.Schema
 {
     public class ColumnInfo
     {
-        public string ColumnName { get; private set; }
-        public SqlDbType DataType { get; private set; }
-        public string Size { get; private set; }
-        public bool Nullable { get; private set; }
-        public bool Key { get; private set; }
-        public string Description { get; private set; }
+        public string ColumnName { get; set; }
+        public string DataType { get; set; }
+        public string Size { get; set; }
+        public bool Nullable { get; set; }
+        public bool Key { get; set; }
+        public string Description { get; set; }
     }
 }
