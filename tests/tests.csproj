@@ -97,6 +97,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="DocGeneratorTests.cs" />
     <Compile Include="SourceCodeParserTests.cs" />
     <Compile Include="CommandParserTests.cs" />
     <Compile Include="FileLoaderTests.cs" />
