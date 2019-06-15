@@ -1,5 +1,5 @@
 CREATE TABLE [FactSalesQuota](
-	[SalesQuotaKey] [int] IDENTITY(1,1) NOT NULL,
+	[SalesQuotaKey] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	[EmployeeKey] [int] NOT NULL,
 	[weight] [numeric](10, 2) NULL,
 	[DateKey] [int] NOT NULL,

@@ -42,10 +42,32 @@ namespace SqlDoctor.Tests
             Assert.Equal(tabCount, this.visitor.Schema.Tables.Count);
         }
 
-        //[Fact]
-        //public void LoadFiles_InvalidPath_Throws()
-        //{
-        //    
-        //}
+        [Fact]
+        public void AcceptVisitor_TestTable_CorrectConstraints()
+        {
+            string input = Properties.Resources.TestDDL0;
+            IList<ParseError> errors;
+            var fragment = this.parser.Parse(new StringReader(input), out errors);
+
+            fragment.Accept(this.visitor);
+
+            var table = visitor.Schema.Tables.First().Value;
+
+            Assert.Equal(8, table.Columns.Count);
+            Assert.True(table.Columns["SalesQuotaKey"].Identity);
+            Assert.False(table.Columns["SalesQuotaKey"].Nullable);
+            Assert.True(table.Columns["SalesQuotaKey"].PrimaryKey);
+            Assert.True(table.Columns["SalesQuotaKey"].Unique);
+
+            Assert.False(table.Columns["EmployeeKey"].Identity);
+            Assert.False(table.Columns["EmployeeKey"].Nullable);
+            Assert.False(table.Columns["EmployeeKey"].PrimaryKey);
+            Assert.False(table.Columns["EmployeeKey"].Unique);
+
+            Assert.False(table.Columns["weight"].Identity);
+            Assert.True(table.Columns["weight"].Nullable);
+            Assert.False(table.Columns["weight"].PrimaryKey);
+            Assert.False(table.Columns["weight"].Unique);
+        }
     }
 }

@@ -40,9 +40,28 @@ namespace SqlDoctor.Parser
                 {
                     ci.Size = string.Empty;
                 }
-                //ci.Key = 
-                //ci.Nullable = 
-                //ci.Identity = 
+
+                ci.Identity = (cd.IdentityOptions != null);
+
+                ci.Nullable = false;
+                ci.Unique = false;
+                ci.PrimaryKey = false;
+
+                foreach (var con in cd.Constraints)
+                {
+                    switch(con)
+                    {
+                        case NullableConstraintDefinition n:
+                            ci.Nullable = n.Nullable;
+                            break;
+                        case UniqueConstraintDefinition u:
+                            ci.Unique = true;
+                            ci.PrimaryKey = u.IsPrimaryKey;
+                            break;
+                    }
+                }
+
+                table.Columns.Add(ci.ColumnName, ci);
             }
 
             this.Schema.Tables.Add(tableName, table);
