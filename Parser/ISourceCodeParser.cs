@@ -6,5 +6,6 @@ namespace SqlDoctor.Parser
     public interface ISourceCodeParser
     {
         SchemaInfo Parse(IEnumerable<string> inputFiles);
+        SchemaInfo Parse(string input);
     }
 }

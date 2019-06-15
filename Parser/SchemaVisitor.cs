@@ -20,17 +20,6 @@ namespace SqlDoctor.Parser
 
         public override void Visit(CreateTableStatement node)
         {
-            //string tableName = string.Format(
-            //    "[{0}].[{1}]",
-            //    node.SchemaObjectName.Identifiers[0].Value,
-            //    node.SchemaObjectName.Identifiers[1].Value
-            //    );
-
-            //node.SchemaObjectName.Identifiers.Aggregate(
-            //    string.Empty,
-            //    func: (s, i) => string.IsNullOrEmpty(s) ? string.Format("[{0}]", i.Value) : string.Format("{0}.[{1}]", s, i.Value)
-            //);
-
             var tableName = string.Join(".", node.SchemaObjectName.Identifiers.Select(i => string.Format("[{0}]", i.Value)));
 
             this.logger.Debug("Parsing CREATE TABLE statement for table {0}", tableName);
@@ -42,6 +31,18 @@ namespace SqlDoctor.Parser
                 var ci = new ColumnInfo();
                 ci.ColumnName = cd.ColumnIdentifier.Value;
                 ci.DataType = cd.DataType.Name.BaseIdentifier.Value;
+
+                if (cd.DataType is ParameterizedDataTypeReference dt)
+                {
+                    ci.Size = string.Join(", ", dt.Parameters.Select(l => l.Value));
+                }
+                else
+                {
+                    ci.Size = string.Empty;
+                }
+                //ci.Key = 
+                //ci.Nullable = 
+                //ci.Identity = 
             }
 
             this.Schema.Tables.Add(tableName, table);

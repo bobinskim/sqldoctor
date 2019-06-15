@@ -16,7 +16,7 @@ namespace SqlDoctor.Schema
         }
 
         public Dictionary<string, ColumnInfo> Columns { get; private set; }
-        public string Name { get; private set; }
+        public string Name { get; set; }
         public string Description { get; set; }
     }
 }

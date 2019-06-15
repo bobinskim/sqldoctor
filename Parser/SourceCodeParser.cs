@@ -28,27 +28,36 @@ namespace SqlDoctor.Parser
 
             foreach(string input in inputFiles)
             {
-                IList<ParseError> errors;
-                var fragment = this.parser.Parse(new StringReader(input), out errors);
-
-                foreach(var err in errors)
-                {
-                    logger.Warn("[Parse error {0} on line {1}] {2}", err.Number, err.Line, err.Message);
-                }
-
-                var visitor = this.visitorFactory();
-                fragment.Accept(visitor);
-
-                this.Append(ret, visitor.Schema);
+                this.Append(ret, this.Parse(input));
             }
 
             return ret;
+        }
+
+        public SchemaInfo Parse(string input)
+        {
+            var fragment = this.parser.Parse(new StringReader(input), out IList<ParseError> errors);
+
+            foreach (var err in errors)
+            {
+                logger.Warn("[Parse error {0} on line {1}] {2}", err.Number, err.Line, err.Message);
+            }
+
+            var visitor = this.visitorFactory();
+            fragment.Accept(visitor);
+
+            return visitor.Schema;
         }
 
         private void Append(SchemaInfo target, SchemaInfo src)
         {
             foreach(var tab in src.Tables)
             {
+                if (target.Tables.ContainsKey(tab.Key))
+                {
+                    throw new ParserException("Duplicated table identifier");
+                }
+
                 target.Tables.Add(tab);
             }
         }
