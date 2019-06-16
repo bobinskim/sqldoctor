@@ -17,6 +17,7 @@ namespace SqlDoctor.Parser
             builder.RegisterType<SourceCodeParser>().AsImplementedInterfaces();
             builder.RegisterType<DirectoryWrap>().AsImplementedInterfaces();
             builder.RegisterType<FileWrap>().AsImplementedInterfaces();
+            builder.RegisterType<SchemaVisitor>().As<SchemaVisitorBase>();
         }
     }
 }

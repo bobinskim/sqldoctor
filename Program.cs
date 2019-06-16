@@ -27,29 +27,21 @@ namespace SqlDoctor
             {
                 SetupLogging();
 
-                try
-                {
-                    var builder = new ContainerBuilder();
+                var builder = new ContainerBuilder();
 
-                    // main facade object
-                    builder.RegisterType<Documenter>();
+                // main facade object
+                builder.RegisterType<Documenter>();
 
-                    // common logger
-                    builder.Register<ILogger>(c => logger);
+                // common logger
+                builder.Register<ILogger>(c => logger);
 
-                    // parser module
-                    builder.RegisterModule<ParserModule>();
+                // parser module
+                builder.RegisterModule<ParserModule>();
 
-                    // generator
-                    builder.RegisterType<DocGenerator>().As<IDocGenerator>();
-                    builder.RegisterType<OutputWriter>().As<IOutputWriter>();
-                    Container = builder.Build();
-                }
-                catch(Exception ex)
-                {
-                    logger.Error(ex, "Application initialization error");
-                    throw;
-                }
+                // generator
+                builder.RegisterType<DocGenerator>().As<IDocGenerator>();
+                builder.RegisterType<OutputWriter>().As<IOutputWriter>();
+                Container = builder.Build();
 
                 if (args.Length > 0)
                 {
@@ -73,7 +65,7 @@ namespace SqlDoctor
             {
                 if (logger != null)
                 {
-                    logger.Error(ex, "Unexpected error occurred");
+                    logger.Error(ex);
                 }
                 else
                 {
