@@ -9,7 +9,7 @@ namespace SqlDoctor.Schema
 {
     public class ColumnInfo
     {
-        public string ColumnName { get; set; }
+        public string Name { get; set; }
         public string DataType { get; set; }
         public string Size { get; set; }
         public bool Nullable { get; set; }

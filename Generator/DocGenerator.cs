@@ -21,7 +21,10 @@ namespace SqlDoctor.Generator
         {
             this.logger.Debug("Generating asciidoc content ...");
 
-            throw new NotImplementedException();
+            AsciidocTarget target = new AsciidocTarget();
+            target.Schema = schema;
+            String res = target.TransformText();
+            return res;
         }
     }
 }

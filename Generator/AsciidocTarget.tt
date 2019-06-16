@@ -1,0 +1,23 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="$(TargetPath)" #>
+<# foreach (var table in Schema.Tables)
+   { #>
+.<#= table.Key #>
+[options="header", cols="1,4,2,2,8,2,2,2"]
+|====
+|| ColumnName | DataType | Size | Description | Identity | Nullable | Unique
+<# foreach (var col in table.Value.Columns)
+    { #>
+
+| <#= col.Value.PrimaryKey ? "icon:key[]" : "" #>
+| <#= col.Value.Name #>
+| <#= col.Value.DataType ?? ""#>
+| <#= col.Value.Size ?? "" #>
+| <#= col.Value.Description ?? "" #>
+| <#= col.Value.Identity ? "true" : "false" #>
+| <#= col.Value.Nullable ? "true" : "false" #>
+| <#= col.Value.Unique ? "true" : "false" #>
+<# } #>
+|====
+
+<# } #>

@@ -29,7 +29,7 @@ namespace SqlDoctor.Parser
             foreach(var cd in node.Definition.ColumnDefinitions)
             {
                 var ci = new ColumnInfo();
-                ci.ColumnName = cd.ColumnIdentifier.Value;
+                ci.Name = cd.ColumnIdentifier.Value;
                 ci.DataType = cd.DataType.Name.BaseIdentifier.Value;
 
                 if (cd.DataType is ParameterizedDataTypeReference dt)
@@ -61,7 +61,7 @@ namespace SqlDoctor.Parser
                     }
                 }
 
-                table.Columns.Add(ci.ColumnName, ci);
+                table.Columns.Add(ci.Name, ci);
             }
 
             this.Schema.Tables.Add(tableName, table);

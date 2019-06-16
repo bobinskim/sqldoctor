@@ -27,7 +27,7 @@ namespace SqlDoctor.Tests
             SchemaInfo testSchema = new SchemaInfo();
             var tab1 = new TableInfo("tab1");
             tab1.Columns["col1"] = new ColumnInfo();
-            tab1.Columns["col1"].ColumnName = "col1";
+            tab1.Columns["col1"].Name = "col1";
             tab1.Columns["col1"].DataType = "int";
             tab1.Columns["col1"].Description = "Column 1";
             tab1.Columns["col1"].Identity = true;
@@ -36,7 +36,7 @@ namespace SqlDoctor.Tests
             tab1.Columns["col1"].Unique = true;
 
             tab1.Columns["col2"] = new ColumnInfo();
-            tab1.Columns["col2"].ColumnName = "col2";
+            tab1.Columns["col2"].Name = "col2";
             tab1.Columns["col2"].DataType = "numeric";
             tab1.Columns["col2"].Size = "10, 2";
             tab1.Columns["col2"].Description = "Column 2";
@@ -49,18 +49,19 @@ namespace SqlDoctor.Tests
 
             var tab2 = new TableInfo("tab2");
             tab2.Columns["col1"] = new ColumnInfo();
-            tab2.Columns["col1"].ColumnName = "col1";
+            tab2.Columns["col1"].Name = "col1";
             tab2.Columns["col1"].DataType = "varchar";
-            tab1.Columns["col1"].Size = "10";
+            tab2.Columns["col1"].Size = "10";
             tab2.Columns["col1"].Description = "Column 1a";
             tab2.Columns["col1"].Identity = false;
             tab2.Columns["col1"].Nullable = false;
             tab2.Columns["col1"].PrimaryKey = false;
             tab2.Columns["col1"].Unique = true;
 
-            string expected = @"
-.tab1
-[options=""header"", cols=""1,2,1,1,4,1,1,1""]
+            testSchema.Tables.Add("tab2", tab2);
+
+            string expected = @".tab1
+[options=""header"", cols=""1,4,2,2,8,2,2,2""]
 |====
 || ColumnName | DataType | Size | Description | Identity | Nullable | Unique
 
@@ -84,7 +85,7 @@ namespace SqlDoctor.Tests
 |====
 
 .tab2
-[options=""header"", cols=""1,2,1,1,4,1,1,1""]
+[options=""header"", cols=""1,4,2,2,8,2,2,2""]
 |====
 || ColumnName | DataType | Size | Description | Identity | Nullable | Unique
 
@@ -96,7 +97,9 @@ namespace SqlDoctor.Tests
 | false
 | false
 | true
-|====";
+|====
+
+";
 
             string result = this.generator.Generate(testSchema);
             Assert.Equal(expected, result);
