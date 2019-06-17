@@ -39,8 +39,8 @@ namespace SqlDoctor.Generator
             
             #line default
             #line hidden
-            this.Write("\r\n[options=\"header\", cols=\"1,4,2,2,8,2,2,2\"]\r\n|====\r\n|| ColumnName | DataType | S" +
-                    "ize | Description | Identity | Nullable | Unique\r\n");
+            this.Write("\r\n[options=\"header\", cols=\"^1,4,2,2,8,^2,^2,^2\"]\r\n|====\r\n|| ColumnName | DataType" +
+                    " | Size | Description | Identity | Nullable | Unique\r\n");
             
             #line 9 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
  foreach (var col in table.Value.Columns)
@@ -86,21 +86,21 @@ namespace SqlDoctor.Generator
             this.Write("\r\n| ");
             
             #line 17 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Identity ? "true" : "false"));
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Identity ? "icon:check[]" : ""));
             
             #line default
             #line hidden
             this.Write("\r\n| ");
             
             #line 18 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Nullable ? "true" : "false"));
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Nullable ? "icon:check[]" : ""));
             
             #line default
             #line hidden
             this.Write("\r\n| ");
             
             #line 19 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Unique ? "true" : "false"));
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Unique ? "icon:check[]" : ""));
             
             #line default
             #line hidden
