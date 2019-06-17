@@ -27,8 +27,8 @@ namespace SqlDoctor.Tests
 
             SchemaInfo schema = new SchemaInfo();
             Mock<ISourceCodeParser> parser = new Mock<ISourceCodeParser>();
-            parser.Setup(p => p.Parse(It.Is<IEnumerable<string>>(input => input.Any()))).Returns(schema);
-            parser.Setup(p => p.Parse(It.Is<IEnumerable<string>>(input => !input.Any()))).Throws<ArgumentException>();
+            parser.Setup(p => p.Parse(It.Is<IEnumerable<string>>(input => input.Any()), It.IsAny<Options>())).Returns(schema);
+            parser.Setup(p => p.Parse(It.Is<IEnumerable<string>>(input => !input.Any()), It.IsAny<Options>())).Throws<ArgumentException>();
 
             Mock<IDocGenerator> gen = new Mock<IDocGenerator>();
             gen.Setup(g => g.Generate(schema)).Returns("=asciidoc output");

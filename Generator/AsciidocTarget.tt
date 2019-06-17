@@ -2,7 +2,8 @@
 <#@ assembly name="$(TargetPath)" #>
 <# foreach (var table in Schema.Tables)
    { #>
-.<#= table.Key #>
+<#= table.Key #> ::
+<#= table.Value.Description #>
 [options="header", cols="^1,4,2,2,8,^2,^2,^2"]
 |====
 || ColumnName | DataType | Size | Description | Identity | Nullable | Unique

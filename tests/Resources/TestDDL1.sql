@@ -650,7 +650,7 @@ CREATE TABLE [dbo].[FactResellerSales](
 ) ON [PRIMARY];
 GO
 
-CREATE TABLE [dbo].[FactSalesQuota](
+CREATE TABLE [dbo].[FactSalesQuota2](
 	[SalesQuotaKey] [int] IDENTITY(1,1) NOT NULL,
 	[EmployeeKey] [int] NOT NULL,
 	[DateKey] [int] NOT NULL,

@@ -22,19 +22,19 @@ namespace SqlDoctor.Parser
             this.visitorFactory = visitorFac;
         }
 
-        public SchemaInfo Parse(IEnumerable<string> inputFiles)
+        public SchemaInfo Parse(IEnumerable<string> inputFiles, Options options)
         {
             SchemaInfo ret = new SchemaInfo();
 
             foreach(string input in inputFiles)
             {
-                this.Append(ret, this.Parse(input));
+                this.Append(ret, this.Parse(input, options));
             }
 
             return ret;
         }
 
-        public SchemaInfo Parse(string input)
+        public SchemaInfo Parse(string input, Options options)
         {
             var fragment = this.parser.Parse(new StringReader(input), out IList<ParseError> errors);
 
@@ -44,6 +44,7 @@ namespace SqlDoctor.Parser
             }
 
             var visitor = this.visitorFactory();
+            visitor.Options = options;
             fragment.Accept(visitor);
 
             return visitor.Schema;
@@ -55,10 +56,12 @@ namespace SqlDoctor.Parser
             {
                 if (target.Tables.ContainsKey(tab.Key))
                 {
-                    throw new ParserException("Duplicated table identifier");
+                    this.logger.Warn("Duplicated table identifier {0}", tab.Key);
                 }
-
-                target.Tables.Add(tab);
+                else
+                {
+                    target.Tables.Add(tab);
+                }
             }
         }
     }

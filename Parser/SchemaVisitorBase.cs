@@ -11,6 +11,7 @@ namespace SqlDoctor.Parser
     abstract public class SchemaVisitorBase : TSqlConcreteFragmentVisitor
     {
         public SchemaInfo Schema { get; set; }
+        public Options Options { get; set; }
 
         protected SchemaVisitorBase()
         {

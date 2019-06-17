@@ -32,17 +32,23 @@ namespace SqlDoctor.Generator
             
             #line default
             #line hidden
-            this.Write(".");
             
             #line 5 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(table.Key));
             
             #line default
             #line hidden
+            this.Write(" ::\r\n");
+            
+            #line 6 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(table.Value.Description));
+            
+            #line default
+            #line hidden
             this.Write("\r\n[options=\"header\", cols=\"^1,4,2,2,8,^2,^2,^2\"]\r\n|====\r\n|| ColumnName | DataType" +
                     " | Size | Description | Identity | Nullable | Unique\r\n");
             
-            #line 9 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 10 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
  foreach (var col in table.Value.Columns)
     { 
             
@@ -50,70 +56,70 @@ namespace SqlDoctor.Generator
             #line hidden
             this.Write("\r\n| ");
             
-            #line 12 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 13 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.PrimaryKey ? "icon:key[]" : ""));
             
             #line default
             #line hidden
             this.Write("\r\n| ");
             
-            #line 13 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 14 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Name));
             
             #line default
             #line hidden
             this.Write("\r\n| ");
             
-            #line 14 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 15 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.DataType ?? ""));
             
             #line default
             #line hidden
             this.Write("\r\n| ");
             
-            #line 15 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 16 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Size ?? ""));
             
             #line default
             #line hidden
             this.Write("\r\n| ");
             
-            #line 16 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 17 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Description ?? ""));
             
             #line default
             #line hidden
             this.Write("\r\n| ");
             
-            #line 17 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 18 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Identity ? "icon:check[]" : ""));
             
             #line default
             #line hidden
             this.Write("\r\n| ");
             
-            #line 18 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 19 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Nullable ? "icon:check[]" : ""));
             
             #line default
             #line hidden
             this.Write("\r\n| ");
             
-            #line 19 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 20 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Unique ? "icon:check[]" : ""));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 20 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 21 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
  } 
             
             #line default
             #line hidden
             this.Write("|====\r\n\r\n");
             
-            #line 23 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 24 "D:\Projekty\sqldoctor\Generator\AsciidocTarget.tt"
  } 
             
             #line default

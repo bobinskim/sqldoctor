@@ -21,6 +21,7 @@ namespace SqlDoctor
         [Option('o', "output", Default = "schema.adoc", HelpText = "Asciidoc output file.")]
         public string Output { get; set; }
 
-
+        [Option('s', "schema", Default = "dbo", HelpText = "Default DB schema name.")]
+        public string Schema { get; set; }
     }
 }

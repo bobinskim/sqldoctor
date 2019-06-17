@@ -38,14 +38,14 @@ namespace SqlDoctor.Tests
             var input = new List<string>();
             input.Add("qwerty asdfg zxcvb");
             
-            SchemaInfo result = this.parser.Parse(input);
+            SchemaInfo result = this.parser.Parse(input, new Options());
             Assert.Equal(2, result.Tables.Count);
         }
 
         [Fact]
         public void Parse_EmptyInput_EmptyOutput()
         {
-            Assert.Empty(this.parser.Parse(new List<string>()).Tables);
+            Assert.Empty(this.parser.Parse(new List<string>(), new Options()).Tables);
         }
     }
 }

@@ -7,4 +7,26 @@ CREATE TABLE [FactSalesQuota](
 	[CalendarQuarter] [tinyint] NOT NULL,
 	[SalesAmountQuota] [money] NOT NULL,
 	[Date] [datetime] NULL
-) ON [PRIMARY];
+) ON [PRIMARY]
+GO
+
+EXECUTE sys.sp_addextendedproperty 
+	@level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'FactSalesQuota'
+	, @name = N'MS_Description'
+	, @value = N'Sales quota fact table';
+GO
+
+EXECUTE sp_addextendedproperty 
+	@level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'FactSalesQuota'
+	, @level2type = N'COLUMN', @level2name = N'SalesQuotaKey'
+	, @name = N'MS_Description'
+	, @value = N'Sales quota row identifier.';
+GO
+
+EXECUTE sp_addextendedproperty 
+	@level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'FactSalesQuota'
+	, @level2type = N'COLUMN', @level2name = N'SalesAmountQuota'
+	, @name = N'MS_Description'
+	, @value = N'Sales amount quota.';
+
+GO

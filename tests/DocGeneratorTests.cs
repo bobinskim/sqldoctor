@@ -61,8 +61,8 @@ namespace SqlDoctor.Tests
             testSchema.Tables.Add(@"tab2", tab2);
 
             string result = this.generator.Generate(testSchema);
-            Assert.Equal(".tab1", result.Substring(0, 6).Trim());
-            Assert.Equal(40, result.Split('\n').Length);
+            Assert.Equal("tab1 ::", result.Substring(0, 8).Trim());
+            Assert.Equal(42, result.Split('\n').Length);
         }
     }
 }
