@@ -14,8 +14,8 @@ variables:
   solution: '*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  majorMinorVersion: 1.0
-  semanticVersion: $[counter(variables['majorMinorVersion'], 0)]
+  #majorMinorVersion: 1.0
+  #semanticVersion: $[counter(variables['majorMinorVersion'], 0)]
 
 steps:
 - task: NuGetToolInstaller@1
@@ -35,11 +35,11 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     
-- task: NuGetCommand@2
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/*.nuspec'
-    versioningScheme: 'byBuildNumber'
+#- task: NuGetCommand@2
+#  inputs:
+#    command: 'pack'
+#    packagesToPack: '**/*.nuspec'
+#    versioningScheme: 'byBuildNumber'
 
 - task: NuGetCommand@2
   inputs:
