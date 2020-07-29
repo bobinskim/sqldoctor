@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untitled :: VTL Processing Documentation</title>
+    <link rel="canonical" href="http://localhost/vtlprocessing/vtl_arch/0.1/01_introduction.html">
+    <meta name="generator" content="Antora 2.3.3">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header" role="banner">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="http://localhost/vtlprocessing">VTL Processing Documentation</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container" data-component="vtl_arch" data-version="0.1">
+  <aside class="navigation" role="navigation">
+    <div class="panels">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Architektura</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="01_introduction.html">Wprowadzenie</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="02_constraints.html">Ograniczenia</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="03_context.html">Kontekst</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="04_strategy.html">Strategia</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="05_architecture.html">Architektura</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="06_runtime.html">Dynamika</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="07_deployment.html">Wdrożenie</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="08_concepts.html">Koncepcje</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="09_decisions.html">Decyzje architektoniczne</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="10_quality_requirements.html">Wymagania jakościowe</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="11_risks.html">Ryzyka i dług techniczny</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="12_glossary.html">Glosariusz</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Architektura</span>
+    <span class="version">0.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Architektura</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+  <main class="main" role="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="crumbs" role="navigation" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="index.html">Architektura</a></li>
+    <li class="crumb"><a href="01_introduction.html">Wprowadzenie</a></li>
+  </ul>
+</nav>
+</div>
+<article class="doc">
+<div class="sect1">
+<h2 id="_wprowadzenie"><a class="anchor" href="#_wprowadzenie"></a>Wprowadzenie</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Niniejszy dokument stanowi dokumentację projektową biblioteki i zestawu narzędzi VTL Processing.
+Adresatami tej dokumentacji jest zespół projektowy Vtl Processing.</p>
+</div>
+<div class="sect2">
+<h3 id="_translacja_języka_vtl"><a class="anchor" href="#_translacja_języka_vtl"></a>Translacja języka VTL</h3>
+<div class="paragraph">
+<p>Istotnym założeniem architektury biznesowej walidacji ESS jest możliwość współdzielenia reguł walidacji danych przekazywanych do Eurostatu przez państwa członkowskie ESS.
+Dzięki temu te same reguły walidacji mogą zostać zastosowane przed wysyłką (strona krajowa) i po przekazaniu danych (Eurostat).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/validation_target_process.png" alt="architektura biznesowa">
+</div>
+<div class="title">Figure 1. Stan docelowy architektury biznesowej walidacji ESS</div>
+</div>
+<div class="paragraph">
+<p>Szczegółowy opis architektury biznesowej walidacji ESS:
+<a href="https://ec.europa.eu/eurostat/cros/system/files/business_architecture_for_ess_validation_-_final.pdf">link</a></p>
+</div>
+<div class="paragraph">
+<p>Jako język definiowania reguł walidacji ESS został zaproponowany VTL.</p>
+</div>
+<div class="paragraph">
+<p>Szczegółowy dotyczące języka VTL:
+<a href="https://sdmx.org/?page_id=5096">link</a></p>
+</div>
+<div class="paragraph">
+<p>Wdrożenie scenariusza 1 <em>architektury</em> wymaga interpretowania lub tłumaczenia wyrażeń VTL na język obsługiwany przez system krajowy.
+VTL Processing ma za zadanie umożliwić integrację języka VTL z systemami przetwarzania i walidowania danych statystycznych.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_przegląd_wymagań"><a class="anchor" href="#_przegląd_wymagań"></a>Przegląd wymagań</h3>
+<div class="paragraph">
+<p>Główne elementy VTL Processing stanowią: biblioteka <em>Core</em> oraz <em>targety</em> translacji.
+<em>Target</em> translacji jest komponentem specyficznym dla translacji do danego języka.
+Biblioteka powinna spełniać następujące wymagania funkcjonalne:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Analiza poprawności wyrażenia, również na zgodność z modelem danych</p>
+</li>
+<li>
+<p>Ładowanie wymaganego do translacji modelu danych z pliku</p>
+</li>
+<li>
+<p>Obsługiwać pełen standard VTL2.0 (docelowo - wszystkie operatory)</p>
+</li>
+<li>
+<p>Kompilacja wyrażeń VTL do reprezentacji pośredniej</p>
+</li>
+<li>
+<p>Translacja wyrażeń VTL do języka T-SQL (domyślny <em>target</em> T-SQL)</p>
+</li>
+<li>
+<p>Mapowanie artefaktów modelu danych na fizyczne struktury danych</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Funkcjonalność zestawu narzędzi towarzyszący bibliotece</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Edycja wyrażeń VTL z kolorowaniem składni</p>
+</li>
+<li>
+<p>Wykonywanie z poziomu GUI wyrażeń VTL na bazie danych SQL Server</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Backlog projektu:
+<a href="https://zgloszenia.stat.intra/product_backlog/17" class="bare">https://zgloszenia.stat.intra/product_backlog/17</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cele_jakościowe"><a class="anchor" href="#_cele_jakościowe"></a>Cele jakościowe</h3>
+<div class="paragraph">
+<p>Zidentyfikowano następujące wymagania/cele jakościowe:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Poprawność </dt>
+<dd>
+<p>Translacja wykonywana w sposób prawidłowy - zgodnie ze specyfikacją języka VTL 2.0</p>
+</dd>
+<dt class="hdlist1">Rozszerzalność </dt>
+<dd>
+<p>Możliwość poszerzenia funkcjonalności, w szczególności o obsługę kolejnych języków docelowych</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_udziałowcy"><a class="anchor" href="#_udziałowcy"></a>Udziałowcy</h3>
+<div class="paragraph">
+<p>Zidentyfikowano następujące strony zainteresowane architekturą biblioteki:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Udziałowcy</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Nazwa</th>
+<th class="tableblock halign-left valign-top">Kontakt</th>
+<th class="tableblock halign-left valign-top">Opis udziału</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zespół utrzymania systemu SPDS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Marek Panfiłow</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kierownik projektu</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mateusz Bobiński</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SDMX TWG - VTL Task Force</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maurizio Capaccioli</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grupa do spraw języka VTL.
+Odpowiada za rozwój jego specyfikacji.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Eurostat</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dostawca reguł walidacji danych w języku VTL i modelu wymaganych danych.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</article>
+  </main>
+</div>
+<footer class="footer">
+  <p>US Olsztyn 2019.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/highlight.js"></script>
+<script>hljs.initHighlighting()</script>
+
+  </body>
+</html>

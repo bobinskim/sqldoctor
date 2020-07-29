@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untitled :: VTL Processing Documentation</title>
+    <link rel="canonical" href="http://localhost/vtlprocessing/vtl_arch/0.1/09_decisions.html">
+    <meta name="generator" content="Antora 2.3.3">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header" role="banner">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="http://localhost/vtlprocessing">VTL Processing Documentation</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container" data-component="vtl_arch" data-version="0.1">
+  <aside class="navigation" role="navigation">
+    <div class="panels">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Architektura</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="01_introduction.html">Wprowadzenie</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="02_constraints.html">Ograniczenia</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="03_context.html">Kontekst</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="04_strategy.html">Strategia</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="05_architecture.html">Architektura</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="06_runtime.html">Dynamika</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="07_deployment.html">Wdrożenie</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="08_concepts.html">Koncepcje</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="09_decisions.html">Decyzje architektoniczne</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="10_quality_requirements.html">Wymagania jakościowe</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="11_risks.html">Ryzyka i dług techniczny</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="12_glossary.html">Glosariusz</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Architektura</span>
+    <span class="version">0.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Architektura</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+  <main class="main" role="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="crumbs" role="navigation" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="index.html">Architektura</a></li>
+    <li class="crumb"><a href="09_decisions.html">Decyzje architektoniczne</a></li>
+  </ul>
+</nav>
+</div>
+<article class="doc">
+<div class="sect1">
+<h2 id="_decyzje_architektoniczne"><a class="anchor" href="#_decyzje_architektoniczne"></a>Decyzje architektoniczne</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_usuwanie_martwego_kodu"><a class="anchor" href="#_usuwanie_martwego_kodu"></a>Usuwanie martwego kodu</h3>
+<div class="paragraph">
+<p>Usuwanie wyrażeń z modelu reprezentacji pośredniej niebędących w użyciu przez inne wyrażenia.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Cel decyzji </dt>
+<dd>
+<p>"Odchudzenie" struktury modelu reprezentacji pośredniej.</p>
+</dd>
+<dt class="hdlist1">Kryteria decyzyjne </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>ograniczenie nadmiernych operacji w wyniku przetwarzania modelu.</p>
+</li>
+<li>
+<p>zmniejszenie ilości kodu wynikowego translacji</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Alternatywy </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>pozostawienie nieużytych wyrażeń</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_zliczanie_ilości_użyć_obiektu_w_celu_zastosowania_jego_nazwy_w_miejscu_jego_wystąpienia"><a class="anchor" href="#_zliczanie_ilości_użyć_obiektu_w_celu_zastosowania_jego_nazwy_w_miejscu_jego_wystąpienia"></a>Zliczanie ilości użyć obiektu w celu zastosowania jego nazwy w miejscu jego wystąpienia</h3>
+<div class="paragraph">
+<p>Użycia obiektu w wyrażeniach przypisanych do innych będą zliczane w celu zastosowania w kodzie wynikowym ich wyrażeń w postaci nazwy obiektu w przypadku więcej niż jednego wystąpienia.<br>
+Za zliczanie wystąpień obiektów będzie odpowiadała klasa <strong>AssignmentObject</strong>.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Cel decyzji </dt>
+<dd>
+<p>Ustalenie sposobu przekazywania wyrażeń obiektów używanych wielorazowo.</p>
+</dd>
+<dt class="hdlist1">Kryteria decyzyjne </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>prostota kodu wynikowego translacji</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Alternatywy </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>używanie wyrażenia przypisanego do obiektu w miejscu jego użycia</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_przypisywanie_obiektowi_nazw_obiektów_go_używających"><a class="anchor" href="#_przypisywanie_obiektowi_nazw_obiektów_go_używających"></a>Przypisywanie obiektowi nazw obiektów go używających</h3>
+<div class="paragraph">
+<p>Po wykryciu użycia obiektu w wyrażeniu innego, instancji <strong>AssignmentObject</strong> odpowiadającej za dany obiekt przypisywana będzie nazwa obiektu z niego korzystającego. W każdej instancji <strong>AssignmentObject</strong> liczone są nazwy obietków korzystających, ich ilość będzie odpowiadać za ilość zastosowań obiektu używanego.<br>
+W przypadku usuwania martwego kodu, przed zliczeniem nazw obiektów korzystających z danego obiektu, te znajdujące się w lesie wyrażenia z operatorem przypisania trwałego (persistent assignment) zostaną potwierdzone we wszystkich instancjach zliczających (czego nie umożliwia zliczanie poprzez wpisywanie do zmiennej typu numerycznego). Tylko potwierdzone obiekty będą zliczane. Instancje, które nie odpowiadają za trwałe przypisanie (persistent assignment), posiadające 0 użyć będą usuwane jako martwy kod.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Cel decyzji </dt>
+<dd>
+<p>Ustalenie sposobu zliczania obiektu używanego wielorazowo.</p>
+</dd>
+<dt class="hdlist1">Kryteria decyzyjne</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>optymalne zliczanie użyć wyrażenia obiektu</p>
+</li>
+<li>
+<p>przyszłe wykorzystanie w usuwaniu martwego kodu</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Alternatywy </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>zliczanie użyć obiektów poprzez wpisywanie do zmiennej typu numerycznego</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_użycie_stałych"><a class="anchor" href="#_użycie_stałych"></a>Użycie stałych</h3>
+<div class="paragraph">
+<p>Przypisania będą odbywać się jednorazowo, to znaczy po przypisaniu wyrażenia do obiektu A, nie będzie można tego zrobić ponownie w nowym poleceniu. Ułatwi to zliczanie wystąpień wyrażeń obiektów w kodzie wynikowym, gdyż ich użycia nie będą się nagle pojawiały w kolejnych przypisywanych wyrażeniach.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>A := 3 + 1;<br>
+<span class="line-through">A := 7 + 2;</span> <strong>błąd</strong></p>
+</div>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Cel decyzji </dt>
+<dd>
+<p>Ustalenie krotności przypisywania wyrażeń do obiektów mającej wpływ na kwestię sposobu zliczania użyć tych obiektów przez inne.</p>
+</dd>
+<dt class="hdlist1">Kryteria decyzyjne </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>nie wszystkie języki docelowe obsługują nadpisywanie wartości zmiennych</p>
+</li>
+<li>
+<p>najprostsza implementacja zliczania wystąpień:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>jednorazowe przejście po drzewie w celu uzyskania wyników</p>
+</li>
+<li>
+<p>przejrzysty model danych</p>
+</li>
+<li>
+<p>przystępna logika</p>
+</li>
+<li>
+<p>prostota stworzenia kodu źródłowego</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Alternatywy </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>użycie zmiennych</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_zliczanie_ilości_użyć_wyrażenia_w_celu_zastosowania_go_jako_stałej"><a class="anchor" href="#_zliczanie_ilości_użyć_wyrażenia_w_celu_zastosowania_go_jako_stałej"></a>Zliczanie ilości użyć wyrażenia w celu zastosowania go jako stałej</h3>
+<div class="paragraph">
+<p>Użycia wyrażenia będą zliczane w celu ich zastosowania w kodzie wynikowym w postaci nazwy stałej w przypadku więcej niż jednego wystąpienia.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Cel decyzji </dt>
+<dd>
+<p>Ustalenie sposobu przekazywania wyrażeń używanych wielorazowo.</p>
+</dd>
+<dt class="hdlist1">Kryteria decyzyjne </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>prostota kodu wynikowego translacji</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Alternatywy </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>używanie wyrażenia w miejscu jego użycia</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_target_tsql_jako_biblioteka_net_core_3_0"><a class="anchor" href="#_target_tsql_jako_biblioteka_net_core_3_0"></a>Target.TSQL jako biblioteka .Net Core 3.0</h3>
+<div class="paragraph">
+<p>Target wykonujący translację do języka T-SQL na podstawie schematu transformacji będzie biblioteką .Net Core 3.0.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Cel decyzji </dt>
+<dd>
+<p>Ustalenie w jakiej technologii odbędzie się proces translacji.</p>
+</dd>
+<dt class="hdlist1">Kryteria decyzyjne </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>obeznanie z narzędziem przez zespół programistyczny</p>
+</li>
+<li>
+<p>optymalne wykorzystanie schematu transformacji</p>
+</li>
+<li>
+<p>możliwość konfiguracji</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Alternatywy </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>String Template</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_transformacja_operatorów_działających_na_zestawach_danych_na_opeartor_join"><a class="anchor" href="#_transformacja_operatorów_działających_na_zestawach_danych_na_opeartor_join"></a>Transformacja operatorów działających na zestawach danych na opeartor join</h3>
+<div class="paragraph">
+<p>Działania, które w bardzo podobny sposób można przedstawić w T-SQL przy pomocy warunku join będą transformowane do postaci operatora join przy pomocy odpowiedniego modyfikatora w warstwie middle-end.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Cel decyzji </dt>
+<dd>
+<p>Uproszczenie mechanizmu translacji operatorów wykorzystujących warunek join.</p>
+</dd>
+<dt class="hdlist1">Kryteria decyzyjne </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>ujednolicenie sposobu translacji</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Alternatywy </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>tworzenie warunku join w każdym wymagającym go rendererze operatora</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_integracja_typów_numerycznych"><a class="anchor" href="#_integracja_typów_numerycznych"></a>Integracja typów numerycznych</h3>
+<div class="paragraph">
+<p>W działaniach na liczbach będzie możliwe użycie obydwu typów numerycznych razem. Wyniki operacji na nich prezetują się następująco:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>a) Integer + Integer = Integer<br>
+b) Integer + Number = Number<br>
+c) Number + Number = Number<br>
+d) Number + Integer = Number</p>
+</div>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Cel decyzji </dt>
+<dd>
+<p>Ustalenie zachowań typów numerycznych.</p>
+</dd>
+<dt class="hdlist1">Kryteria decyzyjne </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>uwzględnienie zachowań typów numerycznych w większości możliwych językach docelowych</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Alternatywy </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>brak możliwości operacji pomiędzy dwoma typami numeryczymi</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_null_jako_dowolny_typ"><a class="anchor" href="#_null_jako_dowolny_typ"></a>Null jako dowolny typ</h3>
+<div class="paragraph">
+<p>Wartość NULL będzie traktowana jako dowolny typ danych pasujący do wszystkiego. W połączeniu z dowolnym typem danych zwracany jest dany typ. Połączenie z drugim NULL&#8217;em zwróci NULL.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Cel decyzji </dt>
+<dd>
+<p>Ustalenie sposobu zachowań operacji zawierających wartość NULL.</p>
+</dd>
+<dt class="hdlist1">Kryteria decyzyjne </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>obsługa zwróconego typu danych w schemacie transformacji</p>
+</li>
+<li>
+<p>uwzględnienie zachowań operacji zawierających wartość NULL w T-SQL</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Alternatywy </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>cokolwiek w połączeniu z NULL&#8217;em zwraca NULL</p>
+</li>
+<li>
+<p>brak możliwości użycia wartości NULL w większości operatorów</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_stałe_typu_czasowego_poprzedzone_literą_t"><a class="anchor" href="#_stałe_typu_czasowego_poprzedzone_literą_t"></a>Stałe typu czasowego poprzedzone literą t</h3>
+<div class="paragraph">
+<p>Stałe typu czasowego będą przedstawiane w postaci string&#8217;a poprzedzonego literą t.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>a) t"2020-04-30"<br>
+b) t"2020Q2"</p>
+</div>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Cel decyzji </dt>
+<dd>
+<p>Ustalenie sposobu przedstawienia stałych typu czasowego.</p>
+</dd>
+<dt class="hdlist1">Kryteria decyzyjne </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>prostota zapisu</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Alternatywy </dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>inne kombinacje string&#8217;ów i symboli</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </main>
+</div>
+<footer class="footer">
+  <p>US Olsztyn 2019.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/highlight.js"></script>
+<script>hljs.initHighlighting()</script>
+
+  </body>
+</html>
