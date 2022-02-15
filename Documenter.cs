@@ -37,7 +37,7 @@ namespace SqlDoctor
                 IEnumerable<string> input_files = loader.LoadFiles(this.InputDir, this.Filter, true);
 
                 SchemaInfo schema = this.parser.Parse(input_files, this);
-                this.OutputDocs = this.generator.Generate(schema);
+                this.OutputDocs = this.generator.Generate(schema, this);
                 writer.WriteOutput(this.OutputDocs, this);
                 return 0;
             }

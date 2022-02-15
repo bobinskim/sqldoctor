@@ -15,13 +15,11 @@ namespace SqlDoctor.Parser
         private readonly ILogger<SourceCodeParser> logger;
         private readonly TSql150Parser parser = new TSql150Parser(false);
         private readonly Func<SchemaVisitorBase> visitorFactory;
-        private readonly Documenter options;
 
-        public SourceCodeParser(ILogger<SourceCodeParser> logger, Func<SchemaVisitorBase> visitorFac, Documenter options)
+        public SourceCodeParser(ILogger<SourceCodeParser> logger, Func<SchemaVisitorBase> visitorFac)
         {
             this.logger = logger;
             this.visitorFactory = visitorFac;
-            this.options = options;
         }
 
         public SchemaInfo Parse(IEnumerable<string> inputFiles, Options options)

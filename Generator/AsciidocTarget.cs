@@ -27,28 +27,35 @@ namespace SqlDoctor.Generator
         {
             
             #line 3 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Options.Title));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\r\n");
+            
+            #line 5 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
  foreach (var table in Schema.Tables)
    { 
             
             #line default
             #line hidden
             
-            #line 5 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 7 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(table.Key));
             
             #line default
             #line hidden
             this.Write(" ::\r\n");
             
-            #line 6 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 8 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(table.Value.Description));
             
             #line default
             #line hidden
-            this.Write("\r\n[options=\"header\", cols=\"^1,4,2,2,8,^2,^2,^2\"]\r\n|====\r\n|| ColumnName | DataType" +
-                    " | Size | Description | Identity | Nullable | Unique\r\n");
+            this.Write("\r\n\r\n[options=\"header\", cols=\"^1,4,2,2,8,^2,^2,^2\"]\r\n|====\r\n| PK | ColumnName | Da" +
+                    "taType | Size | Description | Identity | Nullable | Unique\r\n");
             
-            #line 10 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 13 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
  foreach (var col in table.Value.Columns)
     { 
             
@@ -56,70 +63,70 @@ namespace SqlDoctor.Generator
             #line hidden
             this.Write("\r\n| ");
             
-            #line 13 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.PrimaryKey ? "icon:key[]" : ""));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n| ");
-            
-            #line 14 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Name));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n| ");
-            
-            #line 15 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.DataType ?? ""));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n| ");
-            
             #line 16 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Size ?? ""));
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.PrimaryKey ? Tick : ""));
             
             #line default
             #line hidden
             this.Write("\r\n| ");
             
             #line 17 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Description ?? ""));
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Name));
             
             #line default
             #line hidden
             this.Write("\r\n| ");
             
             #line 18 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Identity ? "icon:check[]" : ""));
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.DataType ?? ""));
             
             #line default
             #line hidden
             this.Write("\r\n| ");
             
             #line 19 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Nullable ? "icon:check[]" : ""));
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Size ?? ""));
             
             #line default
             #line hidden
             this.Write("\r\n| ");
             
             #line 20 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Unique ? "icon:check[]" : ""));
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Description ?? ""));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n| ");
+            
+            #line 21 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Identity ? Tick : ""));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n| ");
+            
+            #line 22 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Nullable ? Tick : ""));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n| ");
+            
+            #line 23 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(col.Value.Unique ? Tick : ""));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 21 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 24 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
  } 
             
             #line default
             #line hidden
             this.Write("|====\r\n\r\n");
             
-            #line 24 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
+            #line 27 "E:\Repo\sqldoctor\sqldoctor\Generator\AsciidocTarget.tt"
  } 
             
             #line default

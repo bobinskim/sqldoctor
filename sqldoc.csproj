@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyName>SqlDoctor</AssemblyName>
     <RootNamespace>SqlDoctor</RootNamespace>
     <Product>sqldoctor</Product>
@@ -10,6 +10,8 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/bobinskim/sqldoctor</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bobinskim/sqldoctor</RepositoryUrl>
+    <OutputType>Exe</OutputType>
+    <StartupObject>SqlDoctor.Program</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

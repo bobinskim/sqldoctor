@@ -12,16 +12,22 @@ namespace SqlDoctor
         [Option("-d|--directory", "Directory path to search for scripts.", CommandOptionType.SingleValue)]
         public string InputDir { get; set; }
 
-        [Option("t|--no-tables", "Documents tables.", CommandOptionType.SingleOrNoValue)]
-        public bool NoTables { get; set; }
+        [Option("-n|--no", "Object types to skip (tables, views, sprocs).", CommandOptionType.MultipleValue)]
+        public string[] Skip { get; set; } = new string[] { };
 
-        [Option("f|--filter", "Pattern to filter file names.", CommandOptionType.SingleOrNoValue)]
-        public string Filter { get; set; }
+        [Option("-f|--filter", "Pattern to filter file names.", CommandOptionType.SingleValue)]
+        public string Filter { get; set; } = "*.sql";
 
-        [Option("o|--output", "Asciidoc output file.", CommandOptionType.SingleOrNoValue)]
-        public string Output { get; set; }
+        [Option("-o|--output", "Asciidoc output file.", CommandOptionType.SingleValue)]
+        public string Output { get; set; } = "schema.adoc";
 
-        [Option("s|--schema", "Default DB schema name.", CommandOptionType.SingleOrNoValue)]
-        public string Schema { get; set; }
+        [Option("-s|--schema", "Default DB schema name.", CommandOptionType.SingleValue)]
+        public string Schema { get; set; } = "dbo";
+
+        [Option("-t|--title", "Title of the generated adoc section", CommandOptionType.SingleValue)]
+        public string Title { get; set; } = string.Empty;
+
+        [Option("-i|--icons", "Use 'icon:check[]' instead of '✓' character", CommandOptionType.NoValue)]
+        public bool Icons { get; set; }
     }
 }

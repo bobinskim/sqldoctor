@@ -17,12 +17,13 @@ namespace SqlDoctor.Generator
             this.logger = logger;
         }
 
-        public string Generate(SchemaInfo schema)
+        public string Generate(SchemaInfo schema, Options options)
         {
             this.logger.LogDebug("Generating asciidoc content ...");
 
             AsciidocTarget target = new AsciidocTarget();
             target.Schema = schema;
+            target.Options = options;
             String res = target.TransformText();
             return res;
         }

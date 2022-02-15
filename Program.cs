@@ -5,12 +5,13 @@ using SqlDoctor.Generator;
 using SqlDoctor.Parser;
 using System;
 using System.IO.Abstractions;
+using System.Linq;
 
 namespace SqlDoctor
 {
-    class Program : Options
+    public static class Program
     {
-        public int Main(string[] args)
+        public static int Main(string[] args)
         {
             // setup DI
             var serviceProvider = new ServiceCollection()
@@ -22,11 +23,20 @@ namespace SqlDoctor
                 .AddSingleton<IFileLoader, FileLoader>()
                 .AddSingleton<ISourceCodeParser, SourceCodeParser>()
                 .AddSingleton<IFileSystem, FileSystem>()
-                .AddSingleton<SchemaVisitorBase, SchemaVisitor>()
+                .AddTransient<SchemaVisitorBase, SchemaVisitor>()
+                .AddSingleton<Func<SchemaVisitorBase>>( (c) => () => c.GetService<SchemaVisitorBase>())
                 .AddLogging(loggerBuilder =>
                 {
-                    loggerBuilder.AddConsole()
-                        .SetMinimumLevel(LogLevel.Information);
+                    if (args.Length > 0)
+                    {
+                        loggerBuilder.AddConsole()
+                            .SetMinimumLevel(LogLevel.Information);
+                    }
+                    else
+                    {
+                        loggerBuilder.AddConsole()
+                            .SetMinimumLevel(LogLevel.Debug);
+                    }
                 })
                 .BuildServiceProvider();
 
@@ -44,7 +54,7 @@ namespace SqlDoctor
                 string input = Console.ReadLine();
                 while (input != "" && input != "exit")
                 {
-                    app.Execute(input.Split(' '));
+                    app.Execute(input.SplitArgs().ToArray());
                     input = Console.ReadLine();
                 }
             }

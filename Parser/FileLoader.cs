@@ -20,7 +20,7 @@ namespace SqlDoctor.Parser
         public IEnumerable<string> LoadFiles(string path, string filter, bool recursive)
         {
           
-            string[] filePaths = this.filesystem.Directory.GetFiles(path ?? "./", filter, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+            string[] filePaths = this.filesystem.Directory.GetFiles(path ?? "./", filter ?? "*.sql", recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
             this.logger.LogDebug("files loaded: " + string.Join(" ; ", filePaths));
 
             return filePaths.Select(f => this.filesystem.File.ReadAllText(f));
