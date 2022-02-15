@@ -36,4 +36,6 @@ jobs:
         dotnet publish sqldoc.csproj -o publish_output --no-build
         choco pack --version ${{ steps.tagName.outputs.tag }}
     - name: PushGithub
-      run: dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --skip-duplicate
+      run: |
+        dotnet tool install gpr -g
+        gpr push *.nupkg -k ${{ secrets.GITHUB_TOKEN }} --repository bobinskim/sqldoctor
