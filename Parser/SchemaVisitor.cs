@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Microsoft.SqlServer.TransactSql.ScriptDom;
-using NLog;
 using SqlDoctor.Schema;
 
 namespace SqlDoctor.Parser
 {
     public class SchemaVisitor : SchemaVisitorBase
     {
-        private readonly ILogger logger;
+        private readonly ILogger<SchemaVisitor> logger;
 
-        public SchemaVisitor(ILogger logger) : base()
+        public SchemaVisitor(ILogger<SchemaVisitor> logger) : base()
         {
             this.logger = logger;
         }
@@ -27,7 +24,7 @@ namespace SqlDoctor.Parser
                 tableName = string.Format("[{0}].{1}", this.Options.Schema, tableName);
             }
 
-            this.logger.Debug("Parsing CREATE TABLE statement for table {0}", tableName);
+            this.logger.LogDebug("Parsing CREATE TABLE statement for table {0}", tableName);
 
             var table = new TableInfo(tableName);
             
@@ -107,7 +104,7 @@ namespace SqlDoctor.Parser
                     }
                     else
                     {
-                        this.logger.Warn("Invalid level 2 EXEC sp_addextendedproperty: {0}", node);
+                        this.logger.LogWarning("Invalid level 2 EXEC sp_addextendedproperty: {0}", node);
                     }
                 }
                 else if (!new string[] { "level0type", "level0name", "level1type", "level1name", "name", "value" }.Except(parDic.Keys).Any())
@@ -118,7 +115,7 @@ namespace SqlDoctor.Parser
                     }
                     else
                     {
-                        this.logger.Warn("Invalid level 1 EXEC sp_addextendedproperty: {0}", node);
+                        this.logger.LogWarning("Invalid level 1 EXEC sp_addextendedproperty: {0}", node);
                     }
                 }
             }
@@ -135,12 +132,12 @@ namespace SqlDoctor.Parser
                 }
                 else
                 {
-                    this.logger.Warn("Attempt to add description for non existent column {0} of table {1}", column, tableName);
+                    this.logger.LogWarning("Attempt to add description for non existent column {0} of table {1}", column, tableName);
                 }
             }
             else
             {
-                this.logger.Warn("Attempt to add description for column of table {0}, which does not exist", tableName);
+                this.logger.LogWarning("Attempt to add description for column of table {0}, which does not exist", tableName);
             }
         }
 
@@ -153,7 +150,7 @@ namespace SqlDoctor.Parser
             }
             else
             {
-                this.logger.Warn("Attempt to add description for table {0}, which does not exist", tableName);
+                this.logger.LogWarning("Attempt to add description for table {0}, which does not exist", tableName);
             }
         }
     }

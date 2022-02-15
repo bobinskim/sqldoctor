@@ -1,4 +1,4 @@
-﻿using NLog;
+﻿using Microsoft.Extensions.Logging;
 using SqlDoctor.Generator;
 using SqlDoctor.Parser;
 using SqlDoctor.Schema;
@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace SqlDoctor
 {
-    public class Documenter
+    public class Documenter : Options
     {
         private readonly IFileLoader loader;
         private readonly ISourceCodeParser parser;
         private readonly IDocGenerator generator;
         private readonly IOutputWriter writer;
-        private readonly ILogger logger;
+        private readonly ILogger<Documenter> logger;
 
-        public Documenter(IFileLoader fl, ISourceCodeParser dp, IDocGenerator gen, IOutputWriter ow, ILogger logger)
+        public Documenter(IFileLoader fl, ISourceCodeParser dp, IDocGenerator gen, IOutputWriter ow, ILogger<Documenter> logger)
         {
             this.loader = fl;
             this.parser = dp;
@@ -29,15 +29,23 @@ namespace SqlDoctor
         }
 
         public string OutputDocs { get; private set; }
-
-        public void MakeDocs(Options options)
+        public int OnExecute()
         {
-            logger.Debug("Generating SQL schema documentation for files in '{0}' filtered by {1}", options.InputDir, options.Filter);
-            IEnumerable<string> input_files = loader.LoadFiles(options.InputDir, options.Filter, true);
-            
-            SchemaInfo schema = this.parser.Parse(input_files, options);
-            this.OutputDocs = this.generator.Generate(schema);
-            writer.WriteOutput(this.OutputDocs, options);
+            try
+            {
+                logger.LogDebug("Generating SQL schema documentation for files in '{0}' filtered by {1}", this.InputDir, this.Filter);
+                IEnumerable<string> input_files = loader.LoadFiles(this.InputDir, this.Filter, true);
+
+                SchemaInfo schema = this.parser.Parse(input_files, this);
+                this.OutputDocs = this.generator.Generate(schema);
+                writer.WriteOutput(this.OutputDocs, this);
+                return 0;
+            }
+            catch(Exception ex)
+            {
+                this.logger.LogError(ex, "Docs generation error");
+                return 1;
+            }
         }
     }
 }

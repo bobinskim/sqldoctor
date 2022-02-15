@@ -1,4 +1,4 @@
-﻿using CommandLine;
+﻿using McMaster.Extensions.CommandLineUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +9,19 @@ namespace SqlDoctor
 {
     public class Options
     {
-        [Option('d', "directory", Required = true, HelpText = "Directory path to search for scripts.")]
+        [Option("-d|--directory", "Directory path to search for scripts.", CommandOptionType.SingleValue)]
         public string InputDir { get; set; }
 
-        [Option('t', "tables", Default = true, HelpText = "Documents tables.")]
-        public bool Tables { get; set; }
+        [Option("t|--no-tables", "Documents tables.", CommandOptionType.SingleOrNoValue)]
+        public bool NoTables { get; set; }
 
-        [Option('f', "filter", Default = @"*.sql", HelpText = "Pattern to filter file names.")]
+        [Option("f|--filter", "Pattern to filter file names.", CommandOptionType.SingleOrNoValue)]
         public string Filter { get; set; }
 
-        [Option('o', "output", Default = "schema.adoc", HelpText = "Asciidoc output file.")]
+        [Option("o|--output", "Asciidoc output file.", CommandOptionType.SingleOrNoValue)]
         public string Output { get; set; }
 
-        [Option('s', "schema", Default = "dbo", HelpText = "Default DB schema name.")]
+        [Option("s|--schema", "Default DB schema name.", CommandOptionType.SingleOrNoValue)]
         public string Schema { get; set; }
     }
 }

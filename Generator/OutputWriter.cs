@@ -1,27 +1,22 @@
-﻿using NLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SystemWrapper.IO;
+﻿using Microsoft.Extensions.Logging;
+using System.IO.Abstractions;
 
 namespace SqlDoctor.Generator
 {
     public class OutputWriter : IOutputWriter
     {
-        private IFileWrap file;
-        private ILogger logger;
+        private IFileSystem fileSystem;
+        private ILogger<OutputWriter> logger;
 
-        public OutputWriter(IFileWrap fw, ILogger logger)
+        public OutputWriter(IFileSystem fw, ILogger<OutputWriter> logger)
         {
-            this.file = fw;
+            this.fileSystem = fw;
             this.logger = logger;
         }
 
         public void WriteOutput(string output, Options options)
         {
-            this.file.WriteAllText(options.Output, output);
+            this.fileSystem.File.WriteAllText(options.Output ?? "schema.adoc", output);
         }
     }
 }

@@ -1,34 +1,29 @@
-﻿using NLog;
-using System;
+﻿using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SystemWrapper.IO;
 
 namespace SqlDoctor.Parser
 {
     public class FileLoader : IFileLoader
     {
-        readonly IDirectoryWrap directory;
-        readonly IFileWrap file;
-        readonly ILogger logger;
+        readonly IFileSystem filesystem;
+        readonly ILogger<FileLoader> logger;
 
-        public FileLoader(IDirectoryWrap dirWrap, IFileWrap fileWrap, ILogger log)
+        public FileLoader(IFileSystem filesystem, ILogger<FileLoader> log)
         {
-            this.directory = dirWrap;
-            this.file = fileWrap;
+            this.filesystem = filesystem;
             this.logger = log;
         }
 
         public IEnumerable<string> LoadFiles(string path, string filter, bool recursive)
         {
           
-            string[] filePaths = this.directory.GetFiles(path, filter, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-            this.logger.Debug("files loaded: " + string.Join(" ; ", filePaths));
+            string[] filePaths = this.filesystem.Directory.GetFiles(path ?? "./", filter, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+            this.logger.LogDebug("files loaded: " + string.Join(" ; ", filePaths));
 
-            return filePaths.Select(f => this.file.ReadAllText(f));
+            return filePaths.Select(f => this.filesystem.File.ReadAllText(f));
         }
     }
 }
