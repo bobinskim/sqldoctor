@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <AssemblyName>SqlDoctor</AssemblyName>
+    <AssemblyName>sqldoc</AssemblyName>
     <RootNamespace>SqlDoctor</RootNamespace>
     <Product>sqldoctor</Product>
     <Authors>Mateusz Bobiński</Authors>
@@ -26,10 +26,6 @@
     <Compile Remove="tests\**" />
     <EmbeddedResource Remove="tests\**" />
     <None Remove="tests\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="AsciidocTarget_.cs" />
   </ItemGroup>
 
   <ItemGroup>
