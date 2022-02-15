@@ -10,7 +10,6 @@
     <tags>sqldoc asciidoc asciidoctor sql</tags>
     <description>Command line tool for generation of asciidoc tables from t-sql DDL scripts.</description>
     <repository type="git" url="https://github.com/bobinskim/sqldoctor.git" />
-    </metadata>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
