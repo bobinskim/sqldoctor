@@ -1,9 +1,11 @@
 name: Release
 
 on:
-  create:
-    tags:
-      - v*
+  push:
+    branches: [ master ]
+#  create:
+#    tags:
+#      - v*
 
 jobs:
   build:
@@ -33,6 +35,7 @@ jobs:
       run: dotnet build
     - name: Pack NuGet
       run: |
-        dotnet pack ./sqldoc.csproj --no-build -p:PackageVersion=${{ steps.tagName.outputs.tag }} --output .
+        dotnet publish sqldoc.csproj -o publish_output --no-build
+        choco pack
     - name: PushGithub
       run: dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --skip-duplicate
