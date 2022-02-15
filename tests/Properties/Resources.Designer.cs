@@ -19,7 +19,7 @@ namespace SqlDoctor.Tests.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -61,15 +61,21 @@ namespace SqlDoctor.Tests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CREATE TABLE [dbo].[FactSalesQuota](
-        ///	[SalesQuotaKey] [int] IDENTITY(1,1) NOT NULL,
+        ///   Looks up a localized string similar to CREATE TABLE [FactSalesQuota](
+        ///	[SalesQuotaKey] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
         ///	[EmployeeKey] [int] NOT NULL,
+        ///	[weight] [numeric](10, 2) NULL,
         ///	[DateKey] [int] NOT NULL,
         ///	[CalendarYear] [smallint] NOT NULL,
         ///	[CalendarQuarter] [tinyint] NOT NULL,
         ///	[SalesAmountQuota] [money] NOT NULL,
         ///	[Date] [datetime] NULL
-        ///) ON [PRIMARY];.
+        ///) ON [PRIMARY]
+        ///GO
+        ///
+        ///EXECUTE sys.sp_addextendedproperty 
+        ///	@level0type = N&apos;SCHEMA&apos;, @level0name = N&apos;dbo&apos;, @level1type = N&apos;TABLE&apos;, @level1name = N&apos;FactSalesQuota&apos;
+        ///	, @name = N&apos;MS_Desc [rest of string was truncated]&quot;;.
         /// </summary>
         public static string TestDDL0 {
             get {
