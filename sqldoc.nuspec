@@ -10,12 +10,12 @@
     <tags>sqldoc asciidoc asciidoctor sql</tags>
     <description>Command line tool for generation of asciidoc tables from t-sql DDL scripts.</description>
     <projectSourceUrl>https://github.com/bobinskim/sqldoctor.git</projectSourceUrl>
+    <dependencies>
+      <dependency id="dotnet-6.0-runtime" />
+    </dependencies>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
     <file src="publish_output\*" target="tools" />
   </files>
-  <dependencies>
-    <dependency id="dotnet-6.0-runtime" version="6.0.*" />
-  </dependencies>
 </package>
