@@ -2,17 +2,17 @@
 
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
-    <id>sqldoc</id>
+    <id>sqldoctor</id>
     <version>0.0.1-beta</version>
     <title>sqldoc</title>
-    <authors>M. Bobiński</authors>
+    <authors>Mateusz Bobiński</authors>
     <projectUrl>https://github.com/bobinskim/sqldoctor</projectUrl>
     <tags>sqldoc asciidoc asciidoctor sql</tags>
     <description>Command line tool for generation of asciidoc tables from t-sql DDL scripts.</description>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
-    <file src="bin\Release\*.exe" target="tools" />
-    <file src="bin\Release\*.dll" target="tools" />
+    <file src="publish_output\*.exe" target="tools" />
+    <file src="publish_output\*.dll" target="tools" />
   </files>
 </package>
