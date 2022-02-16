@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "sqldoc": {
+      "commandName": "Project",
+      "commandLineArgs": "--console"
+    }
+  }
+}

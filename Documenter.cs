@@ -43,7 +43,15 @@ namespace SqlDoctor
             }
             catch(Exception ex)
             {
-                this.logger.LogError(ex, "Docs generation error");
+                if (this.Verbose)
+                {
+                    this.logger.LogError(ex, "Docs generation error");
+                }
+                else
+                {
+                    this.logger.LogError($"Docs generation error: {ex.Message}");
+                }
+
                 return 1;
             }
         }

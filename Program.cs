@@ -13,9 +13,7 @@ namespace SqlDoctor
     {
         public static int Main(string[] args)
         {
-            // setup DI
             var serviceProvider = new ServiceCollection()
-                .AddLogging()
                 .AddSingleton<IDocGenerator, DocGenerator>()
                 .AddSingleton<IOutputWriter, OutputWriter>()
                 .AddSingleton<IDocGenerator, DocGenerator>()
@@ -29,13 +27,18 @@ namespace SqlDoctor
                 {
                     if (args.Length > 0)
                     {
-                        loggerBuilder.AddConsole()
-                            .SetMinimumLevel(LogLevel.Information);
+                        if (args.Contains("--verbose") || args.Contains("-v") || args.Contains("--console") || args.Contains("-c"))
+                        {
+                            loggerBuilder.AddConsole().SetMinimumLevel(LogLevel.Debug);
+                        }
+                        else
+                        {
+                            loggerBuilder.AddConsole().SetMinimumLevel(LogLevel.Information);
+                        }
                     }
                     else
                     {
-                        loggerBuilder.AddConsole()
-                            .SetMinimumLevel(LogLevel.Debug);
+                        loggerBuilder.AddConsole().SetMinimumLevel(LogLevel.Information);
                     }
                 })
                 .BuildServiceProvider();
@@ -45,21 +48,45 @@ namespace SqlDoctor
                 .UseDefaultConventions()
                 .UseConstructorInjection(serviceProvider);
 
-            if (args.Length > 0)
-            {
-                return app.Execute(args);
-            }
-            else
+            var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger("main");
+
+            if (args.Contains("--console") || args.Contains("-c"))
             {
                 string input = Console.ReadLine();
-                while (input != "" && input != "exit")
+                while (input != string.Empty && input != "exit")
                 {
-                    app.Execute(input.SplitArgs().ToArray());
+                    var cargs = input.SplitArgs().ToArray();
+                    Run(app, logger, cargs);
                     input = Console.ReadLine();
                 }
             }
+            else
+            {
+                return Run(app, logger, args);
+            }
 
             return 0;
+        }
+
+        private static int Run(CommandLineApplication<Documenter> app, ILogger logger, string[] cargs)
+        {
+            try
+            {
+                return app.Execute(cargs);
+            }
+            catch (Exception ex)
+            {
+                if (cargs.Contains("--verbose") || cargs.Contains("-v"))
+                {
+                    logger.LogError(ex, "Command line error");
+                }
+                else
+                {
+                    logger.LogError($"Command line error: {ex.Message}");
+                }
+
+                return 1;
+            }
         }
     }
 }

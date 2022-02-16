@@ -13,5 +13,10 @@ namespace SqlDoctor.Generator
         public Options Options { get; set; }
 
         private string Tick { get => this.Options.Icons ? "icon:key[]" : "✓"; }
+
+        private string HeadLevel(int n)
+        {
+            return new string('=', n);
+        }
     }
 }

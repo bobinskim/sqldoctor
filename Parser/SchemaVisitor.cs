@@ -17,6 +17,11 @@ namespace SqlDoctor.Parser
 
         public override void Visit(CreateTableStatement node)
         {
+            if ((node.SchemaObjectName.Identifiers.Count == 1 && node.SchemaObjectName.Identifiers[0].Value.StartsWith('#')) || this.Options.Skip.Contains("tables"))
+            {
+                return;
+            }
+
             var tableName = string.Join(".", node.SchemaObjectName.Identifiers.Select(i => string.Format("[{0}]", i.Value)));
 
             if (!tableName.Contains(".") && this.Options != null)
@@ -31,8 +36,20 @@ namespace SqlDoctor.Parser
             foreach(var cd in node.Definition.ColumnDefinitions)
             {
                 var ci = new ColumnInfo();
+
                 ci.Name = cd.ColumnIdentifier.Value;
-                ci.DataType = cd.DataType.Name.BaseIdentifier.Value;
+                if (cd.ComputedColumnExpression != null)
+                {
+                    ci.DataType = "computed";
+                }
+                else if (cd.DataType != null)
+                {
+                    ci.DataType = cd.DataType.Name.BaseIdentifier.Value;
+                }
+                else
+                {
+                    ci.DataType = "-";
+                }
 
                 if (cd.DataType is ParameterizedDataTypeReference dt)
                 {
@@ -64,6 +81,22 @@ namespace SqlDoctor.Parser
                 }
 
                 table.Columns.Add(ci.Name, ci);
+            }
+
+            foreach(var constraint in node.Definition.TableConstraints)
+            {
+                switch(constraint)
+                {
+                    case UniqueConstraintDefinition u:
+                        if (u.IsPrimaryKey)
+                        {
+                            foreach(var c in u.Columns)
+                            {
+                                table.Columns[c.Column.MultiPartIdentifier.Identifiers.Last().Value].PrimaryKey = true;
+                            }
+                        }
+                        break;
+                }
             }
 
             this.Schema.Tables.Add(tableName, table);

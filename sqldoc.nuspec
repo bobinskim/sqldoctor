@@ -3,13 +3,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>sqldoctor</id>
-    <version>0.0.1-beta</version>
+    <version>0.0.0</version>
     <title>sqldoc</title>
     <authors>Mateusz Bobiński</authors>
     <projectUrl>https://github.com/bobinskim/sqldoctor</projectUrl>
     <tags>sqldoc asciidoc asciidoctor sql</tags>
     <description>Command line tool for generation of asciidoc tables from t-sql DDL scripts.</description>
     <projectSourceUrl>https://github.com/bobinskim/sqldoctor.git</projectSourceUrl>
+    <packageSourceUrl>https://github.com/bobinskim/sqldoctor.git</packageSourceUrl>
     <dependencies>
       <dependency id="dotnet-6.0-runtime" />
     </dependencies>

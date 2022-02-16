@@ -1,7 +1,8 @@
 ﻿<#@ template language="C#" #>
 <#@ assembly name="$(TargetPath)" #>
-<#= Options.Title #>
+<#= string.IsNullOrWhiteSpace(Options.Title) ? "" : $"={HeadLevel(Options.Level)} {Options.Title}" #>
 
+<#= Schema.Tables.Count == 0 ? "" : $"=={HeadLevel(Options.Level)} Tables" #>
 <# foreach (var table in Schema.Tables)
    { #>
 <#= table.Key #> ::

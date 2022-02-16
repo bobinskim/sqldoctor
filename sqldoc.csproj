@@ -23,8 +23,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="publish_output\**" />
     <Compile Remove="tests\**" />
+    <EmbeddedResource Remove="publish_output\**" />
     <EmbeddedResource Remove="tests\**" />
+    <None Remove="publish_output\**" />
     <None Remove="tests\**" />
   </ItemGroup>
 
